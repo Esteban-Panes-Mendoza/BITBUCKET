@@ -15,11 +15,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-/*
-----------------PREGUNTAS------------------------
-¿COMO SE RELACIONAN COMMITS CON PROYECTS?
- */
-
 
 @RestController
 @RequestMapping("/bitbucket")
@@ -48,10 +43,10 @@ public class BitbucketController {
         String projectName = project.getName();
 
         Commit commitData = bitbucketService.getCommitsFromBitbucket(workspace, repoSlug, nCommits, maxPages);
-        // 2. Transformamos esos datos al formato GitMiner
+        //Transformamos esos datos al formato GitMiner
         List<GitMinerCommit> gitMinerCommits = CommitTransformerService.transform(commitData, projectName);
 
-        // 3. Devolvemos los datos transformados
+        // Devolvemos los datos transformados
         return ResponseEntity.ok(gitMinerCommits);
     }
 
