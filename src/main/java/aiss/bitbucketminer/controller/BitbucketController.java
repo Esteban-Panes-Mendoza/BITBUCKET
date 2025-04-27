@@ -15,7 +15,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-
 @RestController
 @RequestMapping("/bitbucket")
 public class BitbucketController {
@@ -46,7 +45,7 @@ public class BitbucketController {
         //Transformamos esos datos al formato GitMiner
         List<GitMinerCommit> gitMinerCommits = CommitTransformerService.transform(commitData, projectName);
 
-        // Devolvemos los datos transformados
+        //Devolvemos los datos transformados
         return ResponseEntity.ok(gitMinerCommits);
     }
 

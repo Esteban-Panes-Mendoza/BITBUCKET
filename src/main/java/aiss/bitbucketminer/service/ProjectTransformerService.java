@@ -38,6 +38,7 @@ public class ProjectTransformerService {
         }
 
         for (GitMinerCommit commit : commits) {
+            if (commit.getProject()==bitbucketRepo.getProject().getName())
                 project.addCommit(commit);
             }
 

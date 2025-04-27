@@ -49,7 +49,7 @@ public class BitbucketService {
                 + "/repositories/" + workspace + "/" + repoSlug;
 
         try {
-            // Petición GET simple usando RestTemplate
+
             Commit_Repository response = restTemplate.getForObject(url, Commit_Repository.class);
 
             if (response == null) {
@@ -63,5 +63,7 @@ public class BitbucketService {
             return null;
         }
     }
+
+
 
 }

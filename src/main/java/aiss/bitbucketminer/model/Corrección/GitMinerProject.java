@@ -45,12 +45,12 @@ public class GitMinerProject {
     public void addCommit(GitMinerCommit commit) {
         Commits.add(commit);
     }
-    public List<GitMinerCommit> getGitMinerCommits() {
+    public List<GitMinerCommit> Commits() {
         return Commits;
     }
 
-    public void setGitMinerCommits(List<GitMinerCommit> gitMinerCommits) {
-        this.Commits = gitMinerCommits;
+    public void setGitMinerCommits(List<GitMinerCommit> Commits) {
+        this.Commits = Commits;
     }
 
     public void addIssue(GitMinerIssues issue) {
