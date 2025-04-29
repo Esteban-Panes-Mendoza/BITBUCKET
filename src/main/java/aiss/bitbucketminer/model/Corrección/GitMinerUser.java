@@ -5,34 +5,21 @@ import jakarta.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
-@Entity
-@Table(name = "Users")
 public class GitMinerUser {
-    @Id
-    @Column(name = "id")
     private String id;
 
-    @Column(name = "username")
     private String username;
 
-    @Column(name = "name")
     private String name;
 
-    @Column(name = "state")
     private String state;
 
-    @Column(name = "avatar_url")
     private String avatar_url;
 
-    @Column(name = "web_url")
     private String web_url;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
-    @JoinColumn(name = "user_id")
     private List<GitMinerIssues> issues;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
-    @JoinColumn(name = "user_id")
     private List<GitMinerComment> gitMinerComments;
 
     public GitMinerUser() {

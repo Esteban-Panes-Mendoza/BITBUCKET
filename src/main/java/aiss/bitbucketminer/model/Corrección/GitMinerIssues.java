@@ -5,52 +5,33 @@ import jakarta.persistence.*;
 import java.time.LocalDateTime;
 import java.util.*;
 
-@Entity
-@Table(name = "issues")
 public class GitMinerIssues {
 
-    @Id
-    @Column(name = "id")
-    private String id;
+    private Integer id;
 
-    @Column(name = "title")
     private String title;
 
-    @Column(name = "description")
     private String description;
 
-    @Column(name = "state")
     private String state;
 
-    @Column(name = "created_at")
     private LocalDateTime created_at;
 
-    @Column(name = "updated_at")
     private LocalDateTime updated_at;
 
-    @Column(name = "closed_at")
     private LocalDateTime closed_at;
 
-    @ElementCollection
-    @CollectionTable(name = "issue_labels", joinColumns = @JoinColumn(name = "issue_id"))
-    @Column(name = "label")
     private List<String> labels;
 
-    @Column(name = "votes")
     private Integer votes;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
-    @JoinColumn(name = "issue_id")
     private List<GitMinerComment> gitMinerComments;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "project_id", nullable = false)
     private GitMinerProject gitMinerProject;
 
+    private GitMinerUser author;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "User_id", nullable = false)
-    private GitMinerUser gitMinerUser;
+    private GitMinerUser asignee;
 
 
     // Constructor vacío
@@ -59,7 +40,7 @@ public class GitMinerIssues {
     }
 
     // Constructor con parámetros
-    public GitMinerIssues(String id, String title, String description, String state, LocalDateTime created_at,
+    public GitMinerIssues(Integer id, String title, String description, String state, LocalDateTime created_at,
                           LocalDateTime updated_at, LocalDateTime closed_at, List<String> labels, Integer votes) {
         this.id = id;
         this.title = title;
@@ -72,7 +53,16 @@ public class GitMinerIssues {
         this.votes = votes;
         this.gitMinerComments = new ArrayList<>();
         this.gitMinerProject= new GitMinerProject();
-        this.gitMinerUser= new GitMinerUser();
+        this.author= new GitMinerUser();
+        this.asignee= new GitMinerUser();
+    }
+
+    public GitMinerUser getAsignee() {
+        return asignee;
+    }
+
+    public void setAsignee(GitMinerUser asignee) {
+        this.asignee = asignee;
     }
 
     public List<GitMinerComment> getGitMinerComments() {
@@ -91,19 +81,19 @@ public class GitMinerIssues {
         this.gitMinerProject = gitMinerProject;
     }
 
-    public GitMinerUser getGitMinerUser() {
-        return gitMinerUser;
+    public GitMinerUser getAuthor() {
+        return author;
     }
 
-    public void setGitMinerUser(GitMinerUser gitMinerUser) {
-        this.gitMinerUser = gitMinerUser;
+    public void setAuthor(GitMinerUser author) {
+        this.author = author;
     }
 
-    public String getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

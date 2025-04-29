@@ -9,36 +9,22 @@ import jakarta.validation.constraints.Past;
 
 import java.time.LocalDateTime;
 
-@Entity
-@Table(name="commits")
 public class GitMinerCommit {
 
-    @Id
     private String  id;
 
-    @Column(name="title")
-    @NotEmpty(message = "El nombre del commit no debe estar vacío")
     private String title;
 
-    @Column(name="message")
-    @NotNull(message = "El mensaje no puede ser nulo")
     private String message;
 
-    @Column(name="author_name")
     private String authorname;
 
-    @Column(name="author_email")
-    @Email
     private String author_email;
 
-    @Column(name="authored_date")
-    @Past
     private LocalDateTime authored_date;
 
-    @Column(name="web_url")
     private String web_url;
 
-    private String gitMinerProject;
 
 
     public GitMinerCommit() {
@@ -52,7 +38,6 @@ public class GitMinerCommit {
         this.author_email = author_email;
         this.authored_date = authored_date;
         this.web_url = web_url;
-        this.gitMinerProject = gitMinerProject;
     }
 
     public String  getId() {
@@ -110,11 +95,4 @@ public class GitMinerCommit {
         this.web_url = web_url;
     }
 
-    public String getProject() {
-        return gitMinerProject;
-    }
-
-    public void setProject(String gitMinerProject) {
-        this.gitMinerProject = gitMinerProject;
-    }
 }

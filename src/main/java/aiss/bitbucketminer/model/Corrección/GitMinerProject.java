@@ -7,28 +7,17 @@ import jakarta.validation.constraints.NotEmpty;
 
 import java.util.ArrayList;
 import java.util.List;
-@Entity
-@Table(name="projects")
+
 public class GitMinerProject {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private String id;
 
-    @Column(name="name")
-    @NotEmpty(message = "El nombre del proyecto no debe estar vacío")
     private String name;
 
-    @Column(name="web_url")
     private String web_url;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
-    @JoinColumn(name="project_id")
     private List<GitMinerCommit> Commits= new ArrayList<>();
 
-
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
-    @JoinColumn(name="project_id")
     private List<GitMinerIssues> issues;
 
     public GitMinerProject() {
