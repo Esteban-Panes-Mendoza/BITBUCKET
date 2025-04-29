@@ -15,7 +15,7 @@ public class CommitTransformerService {
 
     private static final DateTimeFormatter formatter = DateTimeFormatter.ISO_DATE_TIME;
 
-    public static List<GitMinerCommit> transform(Commit commitData, String projectName) {
+    public static List<GitMinerCommit> transform(Commit commitData) {
         List<GitMinerCommit> gitMinerCommits = new ArrayList<>();
 
         if (commitData == null || commitData.getValues() == null) {
@@ -35,7 +35,7 @@ public class CommitTransformerService {
                 } else {
                     commit.setAuthorname(value.getAuthor().getRaw());
                 }
-                //PARA SACAR SOLO EL EMAIL HAY QUE HACER UN METODO APARTE EN EL QUE META (ExtraerEmail(String raw))
+                //TODO PARA SACAR SOLO EL EMAIL HAY QUE HACER UN METODO APARTE EN EL QUE META (ExtraerEmail(String raw))
                 commit.setAuthor_email(value.getAuthor().getRaw());
             } else {
                 commit.setAuthorname(null);

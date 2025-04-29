@@ -1,5 +1,6 @@
 package aiss.bitbucketminer.service;
 
+import aiss.bitbucketminer.model.Corrección.GitMinerIssues;
 import aiss.bitbucketminer.model.Corrección.GitMinerProject;
 import aiss.bitbucketminer.model.REPOSITORY.Commit_Repository;
 import aiss.bitbucketminer.model.Corrección.GitMinerCommit;
@@ -12,7 +13,7 @@ import java.util.List;
 @Service
 public class ProjectTransformerService {
 
-    public GitMinerProject transform(Commit_Repository bitbucketRepo, List<GitMinerCommit> commits) {
+    public GitMinerProject transform(Commit_Repository bitbucketRepo, List<GitMinerCommit> commits, List<GitMinerIssues> issues) {
         if (bitbucketRepo == null) {
             return null;
         }
@@ -38,9 +39,9 @@ public class ProjectTransformerService {
         }
 
         for (GitMinerCommit commit : commits) {
-            if (commit.getProject()==bitbucketRepo.getProject().getName())
                 project.addCommit(commit);
             }
+                project.setIssues(issues);
 
 
         return project;

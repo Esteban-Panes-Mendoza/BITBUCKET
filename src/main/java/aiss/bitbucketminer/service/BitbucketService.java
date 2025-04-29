@@ -1,6 +1,8 @@
 package aiss.bitbucketminer.service;
 
+import aiss.bitbucketminer.model.COMMENT.Comments;
 import aiss.bitbucketminer.model.COMMIT.Commit;
+import aiss.bitbucketminer.model.ISSUES.Issues;
 import aiss.bitbucketminer.model.REPOSITORY.Commit_Repository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -63,6 +65,53 @@ public class BitbucketService {
             return null;
         }
     }
+
+    public Issues getIssuesFromBitbucket(String workspace, String repoSlug) {
+        String url = BITBUCKET_API_BASE_URL
+                + "/repositories/" + workspace + "/" + repoSlug + "/issues";
+
+        try {
+
+            Issues response = restTemplate.getForObject(url, Issues.class);
+
+            if (response == null) {
+                logger.warn("La respuesta de la API de Bitbucket es nula para la URL: {}", url);
+                return null;
+            }
+
+            return response;
+        } catch (RestClientException e) {
+            logger.error("Error al realizar la solicitud a la API de Bitbucket: {}", e.getMessage());
+            return null;
+        }
+    }
+
+    public Comments getCommentsFromBitbucket(String workspace, String repoSlug, Integer id) {
+        String url = BITBUCKET_API_BASE_URL
+                + "/repositories/" + workspace + "/" + repoSlug + "/issues" + id + "/comments";
+
+        try {
+
+            Comments response = restTemplate.getForObject(url, Comments.class);
+
+            if (response == null) {
+                logger.warn("La respuesta de la API de Bitbucket es nula para la URL: {}", url);
+                return null;
+            }
+
+            return response;
+        } catch (RestClientException e) {
+            logger.error("Error al realizar la solicitud a la API de Bitbucket: {}", e.getMessage());
+            return null;
+        }
+    }
+
+
+
+
+
+
+
 
 
 
