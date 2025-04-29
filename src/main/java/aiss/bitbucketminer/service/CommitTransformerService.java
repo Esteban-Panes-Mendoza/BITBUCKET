@@ -49,7 +49,6 @@ public class CommitTransformerService {
             if (value.getLinks() != null && value.getLinks().getHtml() != null) {
                 commit.setWeb_url(value.getLinks().getHtml().getHref());
             }
-            commit.setProject(projectName);
             gitMinerCommits.add(commit);
 
 
