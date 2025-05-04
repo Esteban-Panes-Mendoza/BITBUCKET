@@ -35,8 +35,10 @@ public class CommitTransformerService {
                 } else {
                     commit.setAuthorname(value.getAuthor().getRaw());
                 }
-                //TODO PARA SACAR SOLO EL EMAIL HAY QUE HACER UN METODO APARTE EN EL QUE META (ExtraerEmail(String raw))
-                commit.setAuthor_email(value.getAuthor().getRaw());
+
+                //Metodo para extraer el email
+                String email= extractContent(value.getAuthor().getRaw());
+                commit.setAuthor_email(email);
             } else {
                 commit.setAuthorname(null);
                 commit.setAuthor_email(null);
@@ -58,5 +60,22 @@ public class CommitTransformerService {
 
         return gitMinerCommits;
     }
+
+    public static String extractContent(String input) {
+        StringBuilder result = new StringBuilder();
+        int start = 0;
+        while ((start = input.indexOf('<', start)) != -1) {
+            int end = input.indexOf('>', start);
+            if (end != -1) {
+                String tag = input.substring(start + 1, end);
+                result.append(tag);
+                start = end + 1;
+            } else {
+                break;
+            }
+        }
+        return result.toString();
+    }
+
 
 }

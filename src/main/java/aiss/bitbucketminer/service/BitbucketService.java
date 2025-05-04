@@ -76,9 +76,15 @@ public class BitbucketService {
         }
     }
 
-    public Issues getIssuesFromBitbucket(String workspace, String repoSlug) {
+    public Issues getIssuesFromBitbucket(String workspace, String repoSlug, Integer nCommits, Integer maxPages) {
         String url = BITBUCKET_API_BASE_URL
                 + "/repositories/" + workspace + "/" + repoSlug + "/issues";
+        if (nCommits != null) {
+            url += "?pagelen=" + nCommits;
+        }
+        if (maxPages != null) {
+            url += "&page=" + maxPages;
+        }
 
         try {
             Issues response = restTemplate.getForObject(url, Issues.class);
