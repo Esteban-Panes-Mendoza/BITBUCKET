@@ -55,7 +55,7 @@ public class Value {
     }
 
     @JsonProperty("updated_on")
-    public String getUpdatedOn() {
+    public Object getUpdatedOn() {
         return updatedOn;
     }
 

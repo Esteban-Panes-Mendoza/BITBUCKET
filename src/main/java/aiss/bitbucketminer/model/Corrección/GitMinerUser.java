@@ -12,15 +12,9 @@ public class GitMinerUser {
 
     private String name;
 
-    private String state;
-
     private String avatar_url;
 
     private String web_url;
-
-    private List<GitMinerIssues> issues;
-
-    private List<GitMinerComment> gitMinerComments;
 
     public GitMinerUser() {
     }
@@ -30,11 +24,8 @@ public class GitMinerUser {
         this.id = id;
         this.username = username;
         this.name = name;
-        this.state = state;
         this.avatar_url = avatar_url;
         this.web_url = web_url;
-        this.issues = new ArrayList<>();
-        this.gitMinerComments = new ArrayList<>();
     }
 
     public String getId() {
@@ -61,14 +52,6 @@ public class GitMinerUser {
         this.name = name;
     }
 
-    public String getState() {
-        return state;
-    }
-
-    public void setState(String state) {
-        this.state = state;
-    }
-
     public String getAvatar_url() {
         return avatar_url;
     }
@@ -85,19 +68,4 @@ public class GitMinerUser {
         this.web_url = web_url;
     }
 
-    public List<GitMinerIssues> getIssues() {
-        return issues;
-    }
-
-    public void setIssues(List<GitMinerIssues> issues) {
-        this.issues = issues;
-    }
-
-    public List<GitMinerComment> getComments() {
-        return gitMinerComments;
-    }
-
-    public void setComments(List<GitMinerComment> gitMinerComments) {
-        this.gitMinerComments = gitMinerComments;
-    }
 }

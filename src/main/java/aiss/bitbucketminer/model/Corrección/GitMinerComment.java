@@ -1,6 +1,7 @@
 package aiss.bitbucketminer.model.Corrección;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
@@ -14,10 +15,12 @@ public class GitMinerComment {
 
     private LocalDateTime created_at;
 
-    private LocalDateTime updated_at;
+    private Object updated_at;
 
     private GitMinerUser author;
 
+    @JsonIgnore
+    private Integer issueId;
 
 
     public GitMinerComment() {
@@ -33,12 +36,12 @@ public class GitMinerComment {
 
     }
 
-    public GitMinerUser author() {
-        return author;
+    public Integer getIssueId() {
+        return issueId;
     }
 
-    public void setGitMinerUser(GitMinerUser author) {
-        this.author = author;
+    public void setIssueId(Integer issueId) {
+        this.issueId = issueId;
     }
 
     public Integer getId() {
@@ -65,11 +68,19 @@ public class GitMinerComment {
         this.created_at = created_at;
     }
 
-    public LocalDateTime getUpdated_at() {
+    public Object getUpdated_at() {
         return updated_at;
     }
 
-    public void setUpdated_at(LocalDateTime updated_at) {
+    public void setUpdated_at(Object updated_at) {
         this.updated_at = updated_at;
+    }
+
+    public GitMinerUser getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(GitMinerUser author) {
+        this.author = author;
     }
 }

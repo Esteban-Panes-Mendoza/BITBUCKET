@@ -4,11 +4,18 @@ import aiss.bitbucketminer.model.COMMENT.Comments;
 import aiss.bitbucketminer.model.COMMIT.Commit;
 import aiss.bitbucketminer.model.ISSUES.Issues;
 import aiss.bitbucketminer.model.REPOSITORY.Commit_Repository;
+import aiss.bitbucketminer.model.USER.Users;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.*;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
+import java.util.Base64;
+
 
 @Service
 public class BitbucketService {
@@ -16,6 +23,9 @@ public class BitbucketService {
     private static final Logger logger = LoggerFactory.getLogger(BitbucketService.class);
     private final RestTemplate restTemplate;
     private static final String BITBUCKET_API_BASE_URL = "https://api.bitbucket.org/2.0";
+    private final String username = "modal175175";
+    private final String appPassword = "ATBBrq8du6NpP9ajc2vgnu2GXKFQA13A5029";
+
 
     public BitbucketService() {
         this.restTemplate = new RestTemplate();
@@ -71,7 +81,6 @@ public class BitbucketService {
                 + "/repositories/" + workspace + "/" + repoSlug + "/issues";
 
         try {
-
             Issues response = restTemplate.getForObject(url, Issues.class);
 
             if (response == null) {
@@ -88,7 +97,7 @@ public class BitbucketService {
 
     public Comments getCommentsFromBitbucket(String workspace, String repoSlug, Integer id) {
         String url = BITBUCKET_API_BASE_URL
-                + "/repositories/" + workspace + "/" + repoSlug + "/issues" + id + "/comments";
+                + "/repositories/" + workspace + "/" + repoSlug + "/issues/" + id + "/comments";
 
         try {
 
@@ -100,6 +109,37 @@ public class BitbucketService {
             }
 
             return response;
+        } catch (RestClientException e) {
+            logger.error("Error al realizar la solicitud a la API de Bitbucket: {}", e.getMessage());
+            return null;
+        }
+    }
+
+
+    public String encodeUUID(String uuid) throws UnsupportedEncodingException {
+        return URLEncoder.encode(uuid, "UTF-8");
+    }
+
+
+
+    //PARA ESTA PETICIÓN ES TOTALMENTE NECESARIO TENER UNA CUENTA DE BITBUCKET Y POSEER UNA APP PASSWORD!!!
+    public Users getUserFromBitbucket(String id) {
+        String url = BITBUCKET_API_BASE_URL + "/users/" + id;
+
+        try {
+            String auth = username + ":" + appPassword;
+            String encodedAuth = Base64.getEncoder().encodeToString(auth.getBytes(StandardCharsets.UTF_8));
+            HttpHeaders headers = new HttpHeaders();
+            headers.set("Authorization", "Basic " + encodedAuth);
+            headers.setContentType(MediaType.APPLICATION_JSON);
+            HttpEntity<String> entity = new HttpEntity<>(headers);
+            ResponseEntity<Users> response = restTemplate.exchange(url, HttpMethod.GET, entity, Users.class);
+            if (response.getBody() == null) {
+                logger.warn("La respuesta de la API de Bitbucket es nula para la URL: {}", url);
+                return null;
+            }
+
+            return response.getBody();
         } catch (RestClientException e) {
             logger.error("Error al realizar la solicitud a la API de Bitbucket: {}", e.getMessage());
             return null;

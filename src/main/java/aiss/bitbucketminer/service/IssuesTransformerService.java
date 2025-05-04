@@ -1,46 +1,69 @@
 package aiss.bitbucketminer.service;
 
+import aiss.bitbucketminer.model.Corrección.GitMinerComment;
 import aiss.bitbucketminer.model.Corrección.GitMinerIssues;
+import aiss.bitbucketminer.model.Corrección.GitMinerUser;
 import aiss.bitbucketminer.model.ISSUES.Issues;
 import aiss.bitbucketminer.model.ISSUES.Value;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class IssuesTransformerService {
 
     private static final DateTimeFormatter formatter = DateTimeFormatter.ISO_DATE_TIME;
 
-    public static List<GitMinerIssues> transform(Issues issuesData){
-        List<GitMinerIssues> res= new java.util.ArrayList<>();
-         if (issuesData==null || issuesData.getValues()==null){
-             return res;
-         }
-         for (Value value : issuesData.getValues()){
-                GitMinerIssues issues= new GitMinerIssues();
-                issues.setId(value.getId());
-                issues.setTitle(value.getTitle());
-                issues.setDescription(value.getContent().getRaw());
-                issues.setState(value.getState());
-                issues.setCreated_at(LocalDateTime.parse(value.getCreatedOn(), formatter));
-                issues.setUpdated_at(LocalDateTime.parse(value.getUpdatedOn(), formatter));
-                if (issues.getState()=="closed"){
-                    issues.setClosed_at(issues.getUpdated_at());
-                }else{
-                    issues.setClosed_at(null);
+    public static List<GitMinerIssues> transform(Issues issuesData, List<GitMinerComment> allComments, List<GitMinerUser> allUsers) {
+        List<GitMinerIssues> resultIssues = new ArrayList<>();
+
+        if (issuesData == null || issuesData.getValues() == null) {
+            return resultIssues;
+        }
+        Map<String, GitMinerUser> userMap = new HashMap<>();
+        for (GitMinerUser user : allUsers) {
+            userMap.put(user.getId(), user);
+        }
+
+
+        for (Value value : issuesData.getValues()) {
+
+            GitMinerIssues issue = new GitMinerIssues();
+
+            issue.setId(value.getId());
+            issue.setTitle(value.getTitle());
+            issue.setDescription(value.getContent().getRaw());
+            issue.setState(value.getState());
+            issue.setCreated_at(LocalDateTime.parse(value.getCreatedOn(), formatter));
+            issue.setUpdated_at(LocalDateTime.parse(value.getUpdatedOn(), formatter));
+            issue.setClosed_at("closed".equalsIgnoreCase(value.getState()) ? issue.getUpdated_at() : null);
+
+            List<String> labels = new ArrayList<>();
+            labels.add(value.getKind());
+            issue.setLabels(labels);
+            issue.setVotes(value.getVotes());
+
+            // Filtrar los comentarios correspondientes a esta issue
+            List<GitMinerComment> filteredComments = new ArrayList<>();
+            for (GitMinerComment c : allComments) {
+                if (c.getIssueId() != null && c.getIssueId().equals(issue.getId())) {
+                    filteredComments.add(c);
                 }
-                //TODO NO ESTÁ EN EL JSON
-                List<String> etiquetas= new java.util.ArrayList<>();
-                etiquetas.add(value.getKind());
-                issues.setLabels(etiquetas);
-                issues.setVotes(value.getVotes());
-                //TODO CREAR COMMENTS
-                issues.setComments(new ArrayList<>());
-                res.add(issues);
-         }
-         return res;
+            }
+            issue.setComments(filteredComments);
+
+            // Establecer el autor
+            GitMinerUser author = userMap.get(value.getReporter().getAccountId());
+            issue.setAuthor(author);
+
+            // Agregar la issue transformada a la lista de resultados
+            resultIssues.add(issue);
+        }
+
+        return resultIssues;
     }
 
 }

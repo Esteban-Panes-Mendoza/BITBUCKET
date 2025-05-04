@@ -1,5 +1,6 @@
 package aiss.bitbucketminer.model.Corrección;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
@@ -25,18 +26,17 @@ public class GitMinerIssues {
 
     private Integer votes;
 
-    private List<GitMinerComment> gitMinerComments;
+    private List<GitMinerComment> Comments;
 
-    private GitMinerProject gitMinerProject;
+    @JsonIgnore
+    private GitMinerProject gitminerproject;
 
     private GitMinerUser author;
-
-    private GitMinerUser asignee;
 
 
     // Constructor vacío
     public GitMinerIssues() {
-        this.gitMinerComments = new ArrayList<>();
+        this.Comments = new ArrayList<>();
     }
 
     // Constructor con parámetros
@@ -51,34 +51,24 @@ public class GitMinerIssues {
         this.closed_at = closed_at;
         this.labels = labels;
         this.votes = votes;
-        this.gitMinerComments = new ArrayList<>();
-        this.gitMinerProject= new GitMinerProject();
+        this.Comments = new ArrayList<>();
         this.author= new GitMinerUser();
-        this.asignee= new GitMinerUser();
     }
 
-    public GitMinerUser getAsignee() {
-        return asignee;
+    public List<GitMinerComment> getComments() {
+        return Comments;
     }
 
-    public void setAsignee(GitMinerUser asignee) {
-        this.asignee = asignee;
+    public void setComments(List<GitMinerComment> comments) {
+        Comments = comments;
     }
 
-    public List<GitMinerComment> getGitMinerComments() {
-        return gitMinerComments;
+    public List<GitMinerComment> Comments() {
+        return Comments;
     }
 
-    public void setGitMinerComments(List<GitMinerComment> gitMinerComments) {
-        this.gitMinerComments = gitMinerComments;
-    }
-
-    public GitMinerProject getGitMinerProject() {
-        return gitMinerProject;
-    }
-
-    public void setGitMinerProject(GitMinerProject gitMinerProject) {
-        this.gitMinerProject = gitMinerProject;
+    public void setGitMinerComments(List<GitMinerComment> Comments) {
+        this.Comments = Comments;
     }
 
     public GitMinerUser getAuthor() {
@@ -161,19 +151,7 @@ public class GitMinerIssues {
         this.votes = votes;
     }
 
-    public List<GitMinerComment> getComments() {
-        return gitMinerComments;
-    }
-
-    public void setComments(List<GitMinerComment> gitMinerComments) {
-        this.gitMinerComments = gitMinerComments;
-    }
-
-    public GitMinerProject getProject() {
-        return gitMinerProject;
-    }
-
     public void setProject(GitMinerProject gitMinerProject) {
-        this.gitMinerProject = gitMinerProject;
+        this.gitminerproject = gitMinerProject;
     }
 }

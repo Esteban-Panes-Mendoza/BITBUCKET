@@ -3,6 +3,7 @@ package aiss.bitbucketminer.service;
 import aiss.bitbucketminer.model.COMMENT.Comments;
 import aiss.bitbucketminer.model.COMMENT.Value;
 import aiss.bitbucketminer.model.Corrección.GitMinerComment;
+import aiss.bitbucketminer.model.Corrección.GitMinerUser;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -13,20 +14,20 @@ public class CommentsTransformService {
 
     private static final DateTimeFormatter formatter = DateTimeFormatter.ISO_DATE_TIME;
 
-    public static List<GitMinerComment> transform(Comments commentsdata) {
-        List<GitMinerComment> res= new java.util.ArrayList<>();
-        if (commentsdata==null || commentsdata.getValues()==null){
-            return res;
+    public static GitMinerComment transform(Value value, Integer issuesId, GitMinerUser user) {
+        if (value == null || value.getIssue() == null || !value.getIssue().getId().equals(issuesId)) {
+            return null;
         }
-        for (Value value : commentsdata.getValues()){
-            GitMinerComment comments= new GitMinerComment();
-            comments.setId(value.getId());
-            comments.setBody(value.getContent().getRaw());
-            comments.setCreated_at(LocalDateTime.parse(value.getCreatedOn(), formatter));
-            comments.setUpdated_at(LocalDateTime.parse(value.getUpdatedOn(), formatter));
-            res.add(comments);
-        }
-        return res;
+
+        GitMinerComment comment = new GitMinerComment();
+        comment.setId(value.getId());
+        comment.setBody(value.getContent().getRaw());
+        comment.setCreated_at(LocalDateTime.parse(value.getCreatedOn(), formatter));
+        comment.setUpdated_at(value.getUpdatedOn());
+        comment.setIssueId(value.getIssue().getId());
+        comment.setAuthor(user);
+
+        return comment;
     }
 
 
