@@ -24,7 +24,8 @@ public class GitMinerProject {
 
     }
 
-    public GitMinerProject(String name, String web_url) {
+    public GitMinerProject(String id, String name, String web_url) {
+        this.id= id;
         this.name = name;
         this.web_url = web_url;
         this.issues = new ArrayList<>();
