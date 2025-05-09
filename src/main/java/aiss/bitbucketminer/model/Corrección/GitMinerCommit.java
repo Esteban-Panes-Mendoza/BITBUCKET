@@ -1,12 +1,5 @@
 package aiss.bitbucketminer.model.Corrección;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import jakarta.persistence.*;
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Past;
-
 import java.time.LocalDateTime;
 
 public class GitMinerCommit {
@@ -17,7 +10,7 @@ public class GitMinerCommit {
 
     private String message;
 
-    private String authorname;
+    private String author_name;
 
     private String author_email;
 
@@ -30,11 +23,11 @@ public class GitMinerCommit {
     public GitMinerCommit() {
     }
 
-    public GitMinerCommit(String title, String message, String authorname, String author_email, LocalDateTime authored_date, String web_url) {
+    public GitMinerCommit(String title, String message, String author_name, String author_email, LocalDateTime authored_date, String web_url) {
         this.id= id;
         this.title = title;
         this.message = message;
-        this.authorname = author_email;
+        this.author_name = author_email;
         this.author_email = author_email;
         this.authored_date = authored_date;
         this.web_url = web_url;
@@ -64,12 +57,12 @@ public class GitMinerCommit {
         this.message = message;
     }
 
-    public String getAuthorname() {
-        return authorname;
+    public String getAuthor_name() {
+        return author_name;
     }
 
-    public void setAuthorname(String authorname) {
-        this.authorname = authorname;
+    public void setAuthor_name(String author_name) {
+        this.author_name = author_name;
     }
 
     public String getAuthor_email() {

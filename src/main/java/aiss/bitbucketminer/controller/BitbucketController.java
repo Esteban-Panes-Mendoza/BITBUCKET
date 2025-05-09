@@ -213,7 +213,7 @@ public class BitbucketController {
         List<GitMinerCommit> gitMinerCommits = CommitTransformerService.transform(commitData);
 
         // URL del servicio donde se guardará el commit
-        String postUrl = "http://localhost:8080/api/commits";
+        String postUrl = "http://localhost:8080/gitminer/commits";
 
         // Realizar la petición POST
         ResponseEntity<String> response = restTemplate.postForEntity(postUrl, gitMinerCommits, String.class);
@@ -269,10 +269,10 @@ public class BitbucketController {
         GitMinerProject project = projectTransformerService.transform(repoData, commits, issues);
 
         // URL del servicio donde se guardará el proyecto
-        String postUrl = "http://localhost:8080/api/projects";
+        String postUrl = "http://localhost:8080/gitminer/projects";
 
         // Realizar la petición POST
-        ResponseEntity<String> response = restTemplate.postForEntity(postUrl, project, String.class);
+        ResponseEntity<GitMinerProject> response = restTemplate.postForEntity(postUrl, project, GitMinerProject.class);
 
         // Devolver el estado y un mensaje de éxito
         return ResponseEntity.status(response.getStatusCode()).body("Proyecto guardado con éxito en la base de datos.");
@@ -318,7 +318,7 @@ public class BitbucketController {
         }
 
         // URL del servicio donde se guardará el issue
-        String postUrl = "http://localhost:8080/api/issues";
+        String postUrl = "http://localhost:8080/gitminer/issues";
 
         // Realizar la petición POST
         ResponseEntity<String> response = restTemplate.postForEntity(postUrl, resultado, String.class);
@@ -352,7 +352,7 @@ public class BitbucketController {
         }
 
         // URL del servicio donde se guardará el comentario
-        String postUrl = "http://localhost:8080/api/comments";
+        String postUrl = "http://localhost:8080/gitminer/comments";
 
         // Realizar la petición POST
         ResponseEntity<String> response = restTemplate.postForEntity(postUrl, result, String.class);
@@ -374,7 +374,7 @@ public class BitbucketController {
         GitMinerUser gitMinerUser = UserTransformerService.transform(userdata);
 
         // URL del servicio donde se guardará el usuario
-        String postUrl = "http://localhost:8080/api/users";
+        String postUrl = "http://localhost:8080/gitminer/users";
 
         // Realizar la petición POST
         ResponseEntity<String> response = restTemplate.postForEntity(postUrl, gitMinerUser, String.class);
@@ -382,7 +382,6 @@ public class BitbucketController {
         // Devolver el estado y un mensaje de éxito
         return ResponseEntity.status(response.getStatusCode()).body("Usuario guardado con éxito en la base de datos.");
     }
-
 
 
 

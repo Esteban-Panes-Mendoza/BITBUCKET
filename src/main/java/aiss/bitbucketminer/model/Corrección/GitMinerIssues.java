@@ -26,7 +26,9 @@ public class GitMinerIssues {
 
     private Integer votes;
 
-    private List<GitMinerComment> Comments;
+    private List<GitMinerComment> comments;
+
+    private GitMinerUser assignee;
 
     @JsonIgnore
     private GitMinerProject gitminerproject;
@@ -36,7 +38,7 @@ public class GitMinerIssues {
 
     // Constructor vacío
     public GitMinerIssues() {
-        this.Comments = new ArrayList<>();
+        this.comments = new ArrayList<>();
     }
 
     // Constructor con parámetros
@@ -51,24 +53,33 @@ public class GitMinerIssues {
         this.closed_at = closed_at;
         this.labels = labels;
         this.votes = votes;
-        this.Comments = new ArrayList<>();
+        this.comments = new ArrayList<>();
         this.author= new GitMinerUser();
+        this.assignee = new GitMinerUser();
+    }
+
+    public GitMinerUser getAssignee() {
+        return assignee;
+    }
+
+    public void setAssignee(GitMinerUser assignee) {
+        this.assignee = assignee;
     }
 
     public List<GitMinerComment> getComments() {
-        return Comments;
+        return comments;
     }
 
     public void setComments(List<GitMinerComment> comments) {
-        Comments = comments;
+        comments = comments;
     }
 
-    public List<GitMinerComment> Comments() {
-        return Comments;
+    public List<GitMinerComment> comments() {
+        return comments;
     }
 
-    public void setGitMinerComments(List<GitMinerComment> Comments) {
-        this.Comments = Comments;
+    public void setGitMinerComments(List<GitMinerComment> comments) {
+        this.comments = comments;
     }
 
     public GitMinerUser getAuthor() {

@@ -16,7 +16,7 @@ public class GitMinerProject {
 
     private String web_url;
 
-    private List<GitMinerCommit> Commits= new ArrayList<>();
+    private List<GitMinerCommit> commits= new ArrayList<>();
 
     private List<GitMinerIssues> issues;
 
@@ -29,18 +29,18 @@ public class GitMinerProject {
         this.name = name;
         this.web_url = web_url;
         this.issues = new ArrayList<>();
-        this.Commits = new ArrayList<>();
+        this.commits = new ArrayList<>();
     }
 
     public void addCommit(GitMinerCommit commit) {
-        Commits.add(commit);
+        commits.add(commit);
     }
-    public List<GitMinerCommit> Commits() {
-        return Commits;
+    public List<GitMinerCommit> commits() {
+        return commits;
     }
 
-    public void setGitMinerCommits(List<GitMinerCommit> Commits) {
-        this.Commits = Commits;
+    public void setGitMinercommits(List<GitMinerCommit> commits) {
+        this.commits = commits;
     }
 
     public void addIssue(GitMinerIssues issue) {
@@ -71,12 +71,12 @@ public class GitMinerProject {
         this.web_url = web_url;
     }
 
-    public List<GitMinerCommit> getCommits() {
-        return Commits;
+    public List<GitMinerCommit> getcommits() {
+        return commits;
     }
 
-    public void setCommits(List<GitMinerCommit> gitMinerCommits) {
-        this.Commits = gitMinerCommits;
+    public void setcommits(List<GitMinerCommit> gitMinercommits) {
+        this.commits = gitMinercommits;
     }
 
     public List<GitMinerIssues> getIssues() {

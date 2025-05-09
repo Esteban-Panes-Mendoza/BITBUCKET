@@ -21,7 +21,7 @@ public class CommentsTransformService {
 
         GitMinerComment comment = new GitMinerComment();
         comment.setId(value.getId());
-        comment.setBody(value.getContent().getRaw());
+        comment.setBody(value.getContent().getRaw()==null?"Este comentario está vacío":value.getContent().getRaw());
         comment.setCreated_at(LocalDateTime.parse(value.getCreatedOn(), formatter));
         comment.setUpdated_at(value.getUpdatedOn());
         comment.setIssueId(value.getIssue().getId());

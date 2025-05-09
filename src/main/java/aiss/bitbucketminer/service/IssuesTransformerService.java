@@ -58,6 +58,7 @@ public class IssuesTransformerService {
             // Establecer el autor
             GitMinerUser author = userMap.get(value.getReporter().getAccountId());
             issue.setAuthor(author);
+            issue.setAssignee(author);
 
             // Agregar la issue transformada a la lista de resultados
             resultIssues.add(issue);

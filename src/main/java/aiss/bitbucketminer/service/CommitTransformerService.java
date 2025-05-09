@@ -31,16 +31,16 @@ public class CommitTransformerService {
 
             if (value.getAuthor() != null) {
                 if (value.getAuthor().getUser() != null) {
-                    commit.setAuthorname(value.getAuthor().getUser().getDisplayName());
+                    commit.setAuthor_name(value.getAuthor().getUser().getDisplayName());
                 } else {
-                    commit.setAuthorname(value.getAuthor().getRaw());
+                    commit.setAuthor_name(value.getAuthor().getRaw());
                 }
 
                 //Metodo para extraer el email
                 String email= extractContent(value.getAuthor().getRaw());
                 commit.setAuthor_email(email);
             } else {
-                commit.setAuthorname(null);
+                commit.setAuthor_name(null);
                 commit.setAuthor_email(null);
             }
 
