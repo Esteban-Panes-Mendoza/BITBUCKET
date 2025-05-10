@@ -76,11 +76,11 @@ public class BitbucketService {
         }
     }
 
-    public Issues getIssuesFromBitbucket(String workspace, String repoSlug, Integer nCommits, Integer maxPages) {
+    public Issues getIssuesFromBitbucket(String workspace, String repoSlug, Integer nIssues, Integer maxPages) {
         String url = BITBUCKET_API_BASE_URL
                 + "/repositories/" + workspace + "/" + repoSlug + "/issues";
-        if (nCommits != null) {
-            url += "?pagelen=" + nCommits;
+        if (nIssues != null) {
+            url += "?pagelen=" + nIssues;
         }
         if (maxPages != null) {
             url += "&page=" + maxPages;
