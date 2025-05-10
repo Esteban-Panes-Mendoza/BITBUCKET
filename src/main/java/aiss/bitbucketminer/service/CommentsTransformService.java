@@ -23,8 +23,8 @@ public class CommentsTransformService {
         comment.setId(value.getId().toString());
         comment.setBody(value.getContent().getRaw()==null?"Este comentario está vacío":value.getContent().getRaw());
         comment.setCreated_at(String.valueOf(value.getCreatedOn()));
-        comment.setUpdated_at((String) value.getUpdatedOn());
-        comment.setIssueId(value.getIssue().getId());
+        comment.setUpdated_at(value.getUpdatedOn()==null?"No se ha editado":String.valueOf(value.getUpdatedOn()));
+        comment.setIssueId(value.getIssue().getId().toString());
         comment.setAuthor(user);
 
         return comment;

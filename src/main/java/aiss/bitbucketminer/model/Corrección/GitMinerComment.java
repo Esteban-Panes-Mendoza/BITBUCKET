@@ -20,7 +20,7 @@ public class GitMinerComment {
     private GitMinerUser author;
 
     @JsonIgnore
-    private Integer issueId;
+    private String issueId;
 
 
     public GitMinerComment() {
@@ -36,11 +36,11 @@ public class GitMinerComment {
 
     }
 
-    public Integer getIssueId() {
+    public String getIssueId() {
         return issueId;
     }
 
-    public void setIssueId(Integer issueId) {
+    public void setIssueId(String issueId) {
         this.issueId = issueId;
     }
 

@@ -71,7 +71,7 @@ public class GitMinerIssues {
     }
 
     public void setComments(List<GitMinerComment> comments) {
-        comments = comments;
+        this.comments = comments;
     }
 
     public List<GitMinerComment> comments() {
