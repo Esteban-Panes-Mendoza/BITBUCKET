@@ -8,7 +8,7 @@ import java.util.*;
 
 public class GitMinerIssues {
 
-    private Integer id;
+    private String id;
 
     private String title;
 
@@ -16,11 +16,11 @@ public class GitMinerIssues {
 
     private String state;
 
-    private LocalDateTime created_at;
+    private String created_at;
 
-    private LocalDateTime updated_at;
+    private String updated_at;
 
-    private LocalDateTime closed_at;
+    private String closed_at;
 
     private List<String> labels;
 
@@ -42,8 +42,8 @@ public class GitMinerIssues {
     }
 
     // Constructor con parámetros
-    public GitMinerIssues(Integer id, String title, String description, String state, LocalDateTime created_at,
-                          LocalDateTime updated_at, LocalDateTime closed_at, List<String> labels, Integer votes) {
+    public GitMinerIssues(String id, String title, String description, String state, String created_at,
+                          String updated_at, String closed_at, List<String> labels, Integer votes) {
         this.id = id;
         this.title = title;
         this.description = description;
@@ -90,11 +90,11 @@ public class GitMinerIssues {
         this.author = author;
     }
 
-    public Integer getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -122,27 +122,27 @@ public class GitMinerIssues {
         this.state = state;
     }
 
-    public LocalDateTime getCreated_at() {
+    public String getCreated_at() {
         return created_at;
     }
 
-    public void setCreated_at(LocalDateTime created_at) {
+    public void setCreated_at(String created_at) {
         this.created_at = created_at;
     }
 
-    public LocalDateTime getUpdated_at() {
+    public String getUpdated_at() {
         return updated_at;
     }
 
-    public void setUpdated_at(LocalDateTime updated_at) {
+    public void setUpdated_at(String updated_at) {
         this.updated_at = updated_at;
     }
 
-    public LocalDateTime getClosed_at() {
+    public String getClosed_at() {
         return closed_at;
     }
 
-    public void setClosed_at(LocalDateTime closed_at) {
+    public void setClosed_at(String closed_at) {
         this.closed_at = closed_at;
     }
 

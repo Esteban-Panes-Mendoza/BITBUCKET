@@ -33,12 +33,12 @@ public class IssuesTransformerService {
 
             GitMinerIssues issue = new GitMinerIssues();
 
-            issue.setId(value.getId());
+            issue.setId(value.getId().toString());
             issue.setTitle(value.getTitle());
             issue.setDescription(value.getContent().getRaw());
             issue.setState(value.getState());
-            issue.setCreated_at(LocalDateTime.parse(value.getCreatedOn(), formatter));
-            issue.setUpdated_at(LocalDateTime.parse(value.getUpdatedOn(), formatter));
+            issue.setCreated_at(value.getCreatedOn());
+            issue.setUpdated_at(value.getUpdatedOn());
             issue.setClosed_at("closed".equalsIgnoreCase(value.getState()) ? issue.getUpdated_at() : null);
 
             List<String> labels = new ArrayList<>();

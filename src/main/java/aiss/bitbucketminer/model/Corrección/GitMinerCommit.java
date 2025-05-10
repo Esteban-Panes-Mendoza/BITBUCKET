@@ -14,7 +14,7 @@ public class GitMinerCommit {
 
     private String author_email;
 
-    private LocalDateTime authored_date;
+    private String authored_date;
 
     private String web_url;
 
@@ -23,7 +23,7 @@ public class GitMinerCommit {
     public GitMinerCommit() {
     }
 
-    public GitMinerCommit(String title, String message, String author_name, String author_email, LocalDateTime authored_date, String web_url) {
+    public GitMinerCommit(String title, String message, String author_name, String author_email, String authored_date, String web_url) {
         this.id= id;
         this.title = title;
         this.message = message;
@@ -73,11 +73,11 @@ public class GitMinerCommit {
         this.author_email = author_email;
     }
 
-    public LocalDateTime getAuthored_date() {
+    public String getAuthored_date() {
         return authored_date;
     }
 
-    public void setAuthored_date(LocalDateTime authored_date) {
+    public void setAuthored_date(String authored_date) {
         this.authored_date = authored_date;
     }
 

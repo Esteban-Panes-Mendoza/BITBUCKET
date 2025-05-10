@@ -45,7 +45,7 @@ public class CommitTransformerService {
             }
 
             if (value.getDate() != null) {
-                commit.setAuthored_date(LocalDateTime.parse(value.getDate(), formatter));
+                commit.setAuthored_date(value.getDate().toString());
             }
 
             if (value.getLinks() != null && value.getLinks().getHtml() != null) {
