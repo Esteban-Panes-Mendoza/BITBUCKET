@@ -226,7 +226,7 @@ public class BitbucketController {
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/{workspace}/{repoSlug}")
-    public ResponseEntity<String> saveProjectToDatabase(
+    public ResponseEntity<GitMinerProject> saveProjectToDatabase(
             @PathVariable String workspace,
             @PathVariable String repoSlug,
             @RequestParam(defaultValue = "5") Integer nCommits,
@@ -278,7 +278,7 @@ public class BitbucketController {
         ResponseEntity<GitMinerProject> response = restTemplate.postForEntity(postUrl, project, GitMinerProject.class);
 
         // Devolver el estado y un mensaje de éxito
-        return ResponseEntity.status(response.getStatusCode()).body("Proyecto guardado con éxito en la base de datos.");
+        return ResponseEntity.status(response.getStatusCode()).body(response.getBody());
     }
 
     @ResponseStatus(HttpStatus.CREATED)
