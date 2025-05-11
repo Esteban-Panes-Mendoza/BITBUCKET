@@ -1,19 +1,19 @@
 package aiss.bitbucketminer.service;
 
-import aiss.bitbucketminer.model.Corrección.GitMinerCommit;
-import aiss.bitbucketminer.model.COMMIT.Commit;
-import aiss.bitbucketminer.model.COMMIT.Value;
+import aiss.bitbucketminer.model.GitMinerModelExports.GitMinerCommit;
+import aiss.bitbucketminer.model.COMMIT_POJO.Commit;
+import aiss.bitbucketminer.model.COMMIT_POJO.Value;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
+
+
 import java.util.ArrayList;
 import java.util.List;
 
 @Service
 public class CommitTransformerService {
 
-    private static final DateTimeFormatter formatter = DateTimeFormatter.ISO_DATE_TIME;
+
 
     public static List<GitMinerCommit> transform(Commit commitData) {
         List<GitMinerCommit> gitMinerCommits = new ArrayList<>();

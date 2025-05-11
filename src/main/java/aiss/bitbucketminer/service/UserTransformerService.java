@@ -1,14 +1,7 @@
 package aiss.bitbucketminer.service;
 
-import aiss.bitbucketminer.model.COMMENT.Comments;
-import aiss.bitbucketminer.model.COMMENT.Value;
-import aiss.bitbucketminer.model.Corrección.GitMinerComment;
-import aiss.bitbucketminer.model.Corrección.GitMinerUser;
-import aiss.bitbucketminer.model.USER.Users;
-
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.List;
+import aiss.bitbucketminer.model.GitMinerModelExports.GitMinerUser;
+import aiss.bitbucketminer.model.USER_POJO.Users;
 
 public class UserTransformerService {
 

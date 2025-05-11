@@ -1,18 +1,12 @@
 package aiss.bitbucketminer.service;
 
-import aiss.bitbucketminer.model.COMMENT.Comments;
-import aiss.bitbucketminer.model.COMMENT.Value;
-import aiss.bitbucketminer.model.Corrección.GitMinerComment;
-import aiss.bitbucketminer.model.Corrección.GitMinerUser;
-
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.List;
+import aiss.bitbucketminer.model.COMMENT_POJO.Value;
+import aiss.bitbucketminer.model.GitMinerModelExports.GitMinerComment;
+import aiss.bitbucketminer.model.GitMinerModelExports.GitMinerUser;
 
 public class CommentsTransformService {
 
-    private static final DateTimeFormatter formatter = DateTimeFormatter.ISO_DATE_TIME;
+
 
     public static GitMinerComment transform(Value value, Integer issuesId, GitMinerUser user) {
         if (value == null || value.getIssue() == null || !value.getIssue().getId().equals(issuesId)) {

@@ -1,13 +1,13 @@
 package aiss.bitbucketminer.service;
 
-import aiss.bitbucketminer.model.Corrección.GitMinerComment;
-import aiss.bitbucketminer.model.Corrección.GitMinerIssues;
-import aiss.bitbucketminer.model.Corrección.GitMinerUser;
-import aiss.bitbucketminer.model.ISSUES.Issues;
-import aiss.bitbucketminer.model.ISSUES.Value;
+import aiss.bitbucketminer.model.GitMinerModelExports.GitMinerComment;
+import aiss.bitbucketminer.model.GitMinerModelExports.GitMinerIssues;
+import aiss.bitbucketminer.model.GitMinerModelExports.GitMinerUser;
+import aiss.bitbucketminer.model.ISSUES_POJO.Issues;
+import aiss.bitbucketminer.model.ISSUES_POJO.Value;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
+
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -15,7 +15,7 @@ import java.util.Map;
 
 public class IssuesTransformerService {
 
-    private static final DateTimeFormatter formatter = DateTimeFormatter.ISO_DATE_TIME;
+
 
     public static List<GitMinerIssues> transform(Issues issuesData, List<GitMinerComment> allComments, List<GitMinerUser> allUsers) {
         List<GitMinerIssues> resultIssues = new ArrayList<>();
@@ -46,6 +46,7 @@ public class IssuesTransformerService {
             issue.setLabels(labels);
             issue.setVotes(value.getVotes());
 
+
             // Filtrar los comentarios correspondientes a esta issue
             List<GitMinerComment> filteredComments = new ArrayList<>();
             for (GitMinerComment c : allComments) {
@@ -58,7 +59,7 @@ public class IssuesTransformerService {
             // Establecer el autor
             GitMinerUser author = userMap.get(value.getReporter().getAccountId());
             issue.setAuthor(author);
-            issue.setAssignee(author);
+            issue.setAssignee(null);
 
             // Agregar la issue transformada a la lista de resultados
             resultIssues.add(issue);

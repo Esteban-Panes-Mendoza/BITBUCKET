@@ -1,17 +1,17 @@
 package aiss.bitbucketminer.controller;
 
-import aiss.bitbucketminer.model.COMMENT.Comments;
-import aiss.bitbucketminer.model.Corrección.*;
-import aiss.bitbucketminer.model.COMMIT.Commit;
-import aiss.bitbucketminer.model.ISSUES.Issues;
-import aiss.bitbucketminer.model.ISSUES.Value;
-import aiss.bitbucketminer.model.USER.Users;
+import aiss.bitbucketminer.model.COMMENT_POJO.Comments;
+import aiss.bitbucketminer.model.GitMinerModelExports.*;
+import aiss.bitbucketminer.model.COMMIT_POJO.Commit;
+import aiss.bitbucketminer.model.ISSUES_POJO.Issues;
+import aiss.bitbucketminer.model.ISSUES_POJO.Value;
+import aiss.bitbucketminer.model.USER_POJO.Users;
 import aiss.bitbucketminer.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import aiss.bitbucketminer.model.REPOSITORY.Commit_Repository;
+import aiss.bitbucketminer.model.REPOSITORY_POJO.Commit_Repository;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.ArrayList;
@@ -83,7 +83,7 @@ public class BitbucketController {
             List<GitMinerComment> comments = new ArrayList<>();
 
             if (commentsData != null && commentsData.getValues() != null) {
-                for (aiss.bitbucketminer.model.COMMENT.Value commentValue : commentsData.getValues()) {
+                for (aiss.bitbucketminer.model.COMMENT_POJO.Value commentValue : commentsData.getValues()) {
                     Users commentUserData = bitbucketService.getUserFromBitbucket(commentValue.getUser().getAccountId());
                     GitMinerUser commentUser = UserTransformerService.transform(commentUserData);
 
@@ -135,7 +135,7 @@ public class BitbucketController {
                 allUsers.add(gitMinerUser);
                 Comments commentsData = bitbucketService.getCommentsFromBitbucket(workspace, repoSlug, value.getId());
                 if (commentsData != null && commentsData.getValues() != null) {
-                    for (aiss.bitbucketminer.model.COMMENT.Value commentValue : commentsData.getValues()) {
+                    for (aiss.bitbucketminer.model.COMMENT_POJO.Value commentValue : commentsData.getValues()) {
                         Users commentUserData = bitbucketService.getUserFromBitbucket(commentValue.getUser().getAccountId());
                         GitMinerUser commentUser = UserTransformerService.transform(commentUserData);
                         GitMinerComment comment = CommentsTransformService.transform(commentValue, value.getId(), commentUser);
@@ -164,7 +164,7 @@ public class BitbucketController {
         Comments commentsData = bitbucketService.getCommentsFromBitbucket(workspace, repoSlug, issuesId);
         List<GitMinerComment> result = new ArrayList<>();
 
-        for (aiss.bitbucketminer.model.COMMENT.Value value : commentsData.getValues()) {
+        for (aiss.bitbucketminer.model.COMMENT_POJO.Value value : commentsData.getValues()) {
             Users userData = bitbucketService.getUserFromBitbucket(value.getUser().getAccountId());
             GitMinerUser gitMinerUser = UserTransformerService.transform(userData);
 
@@ -251,7 +251,7 @@ public class BitbucketController {
             List<GitMinerComment> comments = new ArrayList<>();
 
             if (commentsData != null && commentsData.getValues() != null) {
-                for (aiss.bitbucketminer.model.COMMENT.Value commentValue : commentsData.getValues()) {
+                for (aiss.bitbucketminer.model.COMMENT_POJO.Value commentValue : commentsData.getValues()) {
                     Users commentUserData = bitbucketService.getUserFromBitbucket(commentValue.getUser().getAccountId());
                     GitMinerUser commentUser = UserTransformerService.transform(commentUserData);
 
@@ -311,7 +311,7 @@ public class BitbucketController {
                 allUsers.add(gitMinerUser);
                 Comments commentsData = bitbucketService.getCommentsFromBitbucket(workspace, repoSlug, value.getId());
                 if (commentsData != null && commentsData.getValues() != null) {
-                    for (aiss.bitbucketminer.model.COMMENT.Value commentValue : commentsData.getValues()) {
+                    for (aiss.bitbucketminer.model.COMMENT_POJO.Value commentValue : commentsData.getValues()) {
                         Users commentUserData = bitbucketService.getUserFromBitbucket(commentValue.getUser().getAccountId());
                         GitMinerUser commentUser = UserTransformerService.transform(commentUserData);
                         GitMinerComment comment = CommentsTransformService.transform(commentValue, value.getId(), commentUser);
@@ -350,7 +350,7 @@ public class BitbucketController {
         Comments commentsData = bitbucketService.getCommentsFromBitbucket(workspace, repoSlug, issuesId);
         List<GitMinerComment> result = new ArrayList<>();
 
-        for (aiss.bitbucketminer.model.COMMENT.Value value : commentsData.getValues()) {
+        for (aiss.bitbucketminer.model.COMMENT_POJO.Value value : commentsData.getValues()) {
             Users userData = bitbucketService.getUserFromBitbucket(value.getUser().getAccountId());
             GitMinerUser gitMinerUser = UserTransformerService.transform(userData);
 

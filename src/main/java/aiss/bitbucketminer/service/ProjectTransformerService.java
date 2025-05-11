@@ -1,10 +1,9 @@
 package aiss.bitbucketminer.service;
 
-import aiss.bitbucketminer.model.Corrección.GitMinerIssues;
-import aiss.bitbucketminer.model.Corrección.GitMinerProject;
-import aiss.bitbucketminer.model.REPOSITORY.Commit_Repository;
-import aiss.bitbucketminer.model.Corrección.GitMinerCommit;
-import aiss.bitbucketminer.service.CommitTransformerService;
+import aiss.bitbucketminer.model.GitMinerModelExports.GitMinerIssues;
+import aiss.bitbucketminer.model.GitMinerModelExports.GitMinerProject;
+import aiss.bitbucketminer.model.REPOSITORY_POJO.Commit_Repository;
+import aiss.bitbucketminer.model.GitMinerModelExports.GitMinerCommit;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;

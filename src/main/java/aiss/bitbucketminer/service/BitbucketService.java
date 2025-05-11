@@ -1,10 +1,10 @@
 package aiss.bitbucketminer.service;
 
-import aiss.bitbucketminer.model.COMMENT.Comments;
-import aiss.bitbucketminer.model.COMMIT.Commit;
-import aiss.bitbucketminer.model.ISSUES.Issues;
-import aiss.bitbucketminer.model.REPOSITORY.Commit_Repository;
-import aiss.bitbucketminer.model.USER.Users;
+import aiss.bitbucketminer.model.COMMENT_POJO.Comments;
+import aiss.bitbucketminer.model.COMMIT_POJO.Commit;
+import aiss.bitbucketminer.model.ISSUES_POJO.Issues;
+import aiss.bitbucketminer.model.REPOSITORY_POJO.Commit_Repository;
+import aiss.bitbucketminer.model.USER_POJO.Users;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.*;
