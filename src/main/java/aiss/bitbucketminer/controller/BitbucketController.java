@@ -15,7 +15,9 @@ import aiss.bitbucketminer.model.REPOSITORY.Commit_Repository;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 
 @RestController
@@ -64,28 +66,19 @@ public class BitbucketController {
             @RequestParam(defaultValue = "5") Integer nIssues
 ) {
 
-        // Obtener datos del repositorio
         Commit_Repository repoData = bitbucketService.getProjectsFromBitbucket(workspace, repoSlug);
-
-        // Obtener Commits
         Commit commitData = bitbucketService.getCommitsFromBitbucket(workspace, repoSlug, nCommits, maxPages);
         List<GitMinerCommit> commits = CommitTransformerService.transform(commitData);
 
-        // Obtener Issues y comentarios
         Issues issuesData = bitbucketService.getIssuesFromBitbucket(workspace, repoSlug,nIssues,maxPages);
         List<GitMinerIssues> issues = new ArrayList<>();
         List<GitMinerUser> allusers = new ArrayList<>();
 
-
-        // Iterar sobre cada issue
         for (Value issueValue : issuesData.getValues()) {
-
-            // Usuario que reportó la issue
             Users reporterData = bitbucketService.getUserFromBitbucket(issueValue.getReporter().getAccountId());
             GitMinerUser reporter = UserTransformerService.transform(reporterData);
             allusers.add(reporter);
 
-            // Obtener y transformar los comentarios de la issue
             Comments commentsData = bitbucketService.getCommentsFromBitbucket(workspace, repoSlug, issueValue.getId());
             List<GitMinerComment> comments = new ArrayList<>();
 
@@ -94,7 +87,6 @@ public class BitbucketController {
                     Users commentUserData = bitbucketService.getUserFromBitbucket(commentValue.getUser().getAccountId());
                     GitMinerUser commentUser = UserTransformerService.transform(commentUserData);
 
-                    // Transformar el comentario
                     GitMinerComment comment = CommentsTransformService.transform(commentValue, issueValue.getId(), commentUser);
                     if (comment != null) {
                         comments.add(comment);
@@ -102,15 +94,20 @@ public class BitbucketController {
                 }
             }
 
-            // Transformar la issue y asignar los comentarios
             List<GitMinerIssues> transformedIssues = IssuesTransformerService.transform(issuesData, comments, allusers);
             if (transformedIssues != null && !transformedIssues.isEmpty()) {
                 issues.addAll(transformedIssues);
             }
         }
+        List<GitMinerIssues> ListaIssues = new ArrayList<>();
+        Set<String> uniqueIds = new HashSet<>();
 
-        // Construir y devolver el proyecto final
-        GitMinerProject project = projectTransformerService.transform(repoData, commits, issues);
+        for (GitMinerIssues issue : issues) {
+            if (uniqueIds.add(issue.getId())) {
+                ListaIssues.add(issue);
+            }
+        }
+        GitMinerProject project = projectTransformerService.transform(repoData, commits, ListaIssues);
         return ResponseEntity.ok(project);
     }
 
@@ -270,8 +267,15 @@ public class BitbucketController {
                 issues.addAll(transformedIssues);
             }
         }
+        List<GitMinerIssues> ListaIssues = new ArrayList<>();
+        Set<String> uniqueIds = new HashSet<>();
 
-        GitMinerProject project = projectTransformerService.transform(repoData, commits, issues);
+        for (GitMinerIssues issue : issues) {
+            if (uniqueIds.add(issue.getId())) {
+                ListaIssues.add(issue);
+            }
+        }
+        GitMinerProject project = projectTransformerService.transform(repoData, commits, ListaIssues);
 
         // URL del servicio donde se guardará el proyecto
         String postUrl = "http://localhost:8080/gitminer/projects";
