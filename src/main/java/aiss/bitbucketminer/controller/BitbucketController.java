@@ -59,8 +59,10 @@ public class BitbucketController {
     public ResponseEntity<GitMinerProject> getProjects(
             @PathVariable String workspace,
             @PathVariable String repoSlug,
-            @RequestParam(required = false) Integer nCommits,
-            @RequestParam(required = false) Integer maxPages) {
+            @RequestParam(defaultValue = "5") Integer nCommits,
+            @RequestParam(defaultValue = "2") Integer maxPages,
+            @RequestParam(defaultValue = "5") Integer nIssues
+) {
 
         // Obtener datos del repositorio
         Commit_Repository repoData = bitbucketService.getProjectsFromBitbucket(workspace, repoSlug);
@@ -70,7 +72,7 @@ public class BitbucketController {
         List<GitMinerCommit> commits = CommitTransformerService.transform(commitData);
 
         // Obtener Issues y comentarios
-        Issues issuesData = bitbucketService.getIssuesFromBitbucket(workspace, repoSlug,nCommits,maxPages);
+        Issues issuesData = bitbucketService.getIssuesFromBitbucket(workspace, repoSlug,nIssues,maxPages);
         List<GitMinerIssues> issues = new ArrayList<>();
         List<GitMinerUser> allusers = new ArrayList<>();
 
